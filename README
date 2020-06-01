@@ -1,0 +1,25 @@
+Intro
+=====
+
+Pysimlab is a laboratory for time based simulations. The ideas is that it can manage the data, models and parameters for different runs of a simulation.
+
+Its speciality is combining different models together, so that many people can work independently on models, that can be later combined into a simulation.
+
+Technology Plans
+=====
+Pint: to manage the units of the 
+Jax & numpy: For speeding up the running of kernels
+Ema-workbench: For running multiple simulations under different scenarios
+QT5: For the datagrid (using pyspread for inspiration)
+matplotlib: visualisation
+
+Roadmap plans
+====
+
+ndarry backed QTableView initialised from csv
+Structures for local repositories of datasets/models.
+Fileformat for an experiment 
+
+
+
+
