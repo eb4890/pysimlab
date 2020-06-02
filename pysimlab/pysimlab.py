@@ -12,7 +12,7 @@ from PyQt5.QtGui import QColor
 import numpy as np
 
 
-class NdaArrayTableModel(QAbstractTableModel):
+class NdArrayTableModel(QAbstractTableModel):
     def __init__(self, data=None):
         QAbstractTableModel.__init__(self)
         self.nda_data = data
@@ -59,14 +59,14 @@ class PySimLab (QApplication):
         super().__init__(argv)
 
 
-class NdarrayGrid(QTableView):
+class NdArrayGrid(QTableView):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
 if __name__== "__main__":
     app = PySimLab(sys.argv)
-    model = NdaArrayTableModel(np.zeros((10,10)))
-    window = NdarrayGrid()
+    model = NdArrayTableModel(np.zeros((10,10)))
+    window = NdArrayGrid()
     window.setModel(model)
     window.setWindowTitle("PySimLab")
     window.setGeometry(100,100,280, 80)
