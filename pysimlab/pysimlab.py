@@ -1,6 +1,8 @@
 
 import sys
 
+from typing import Any
+
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QTableView
@@ -15,16 +17,14 @@ import numpy as np
 class NdArrayTableModel(QAbstractTableModel):
     def __init__(self, data=None):
         QAbstractTableModel.__init__(self)
-        self.nda_data = data
         shape = data.shape
-        if len(shape) == 2:
-            x,y = shape
-            self.column_count = x
-            self.row_count =  y
         if len(shape) ==1 :
             x, = shape
-            self.column_count =  x
-            self.row_count =  1
+            data = data.reshape((x,1))
+        x,y = data.shape
+        self.nda_data = data
+        self.column_count =  y
+        self.row_count =  x
 
     def rowCount(self, parent=QModelIndex()):
         return self.row_count
@@ -38,7 +38,7 @@ class NdArrayTableModel(QAbstractTableModel):
         else:
             return "{}".format(section)
 
-    def data(self, index, role=Qt.DisplayRole):
+    def data(self, index: QModelIndex, role: Qt.ItemDataRole =Qt.DisplayRole):
         column = index.column()
         row = index.row()
 
@@ -51,7 +51,17 @@ class NdArrayTableModel(QAbstractTableModel):
 
         return None
 
+    def flags(self, index: QModelIndex):
+        return QAbstractTableModel.flags(self, index) | Qt.ItemIsEditable
 
+    def setData(self, index: QModelIndex, value: Any,
+                role: Qt.ItemDataRole = Qt.DisplayRole) -> bool:
+        if role==Qt.EditRole:
+            self.nda_data[index.row()][index.column()] = value
+            self.dataChanged.emit(index, index)
+            return True
+        else:
+            return False
 
 
 class PySimLab (QApplication):
@@ -65,7 +75,7 @@ class NdArrayGrid(QTableView):
 
 if __name__== "__main__":
     app = PySimLab(sys.argv)
-    model = NdArrayTableModel(np.zeros((10,10)))
+    model = NdArrayTableModel(np.zeros((10)))
     window = NdArrayGrid()
     window.setModel(model)
     window.setWindowTitle("PySimLab")
