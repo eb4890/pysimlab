@@ -1,9 +1,11 @@
 Intro
 =====
 
-Pysimlab is a laboratory for time based simulations. The ideas is that it can manage the data, models and parameters for different runs of a simulation.
+Pysimlab is a laboratory for time based simulations. It is supposed to be an ISE, an integrated simulation environment. The ideas is that it can manage the data, models and parameters for different runs of a simulation.
 
 Its speciality is combining different models together, so that many people can work independently on models, that can be later combined into a simulation.
+
+
 
 Technology Plans
 =====
